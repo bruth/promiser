@@ -1,10 +1,12 @@
 {
   "name": "promiser",
-  "repo": "bruth/promiser",
+  "version": "0.2.0",
+  "author": "Byron Ruth <b@devel.io>",
   "description": "Manager of jQuery deferreds by name",
   "homepage": "http://bruth.github.io/promiser/",
+  "license": "BSD",
   "keywords": ["deferred", "promise"],
-  "author": "Byron Ruth <b@devel.io>",
+  "repo": "bruth/promiser",
   "repository": {
     "type": "git",
     "url": "git://github.com/bruth/promiser.git"
@@ -12,7 +14,6 @@
   "dependencies": {
     "jquery": ">=1.7.0"
   },
-  "version": "0.1.0",
   "main": "promiser.js",
   "ignore": [
     "**/.*",
