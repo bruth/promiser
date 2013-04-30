@@ -30,7 +30,7 @@
         <section id="main-content">
           <h1>Promiser</h1>
 
-<p><code>promiser</code> is a simple manager of deferreds by name. Rather than creating and maintaining references to <code>jQuery.Deferred</code> objects, simply register a handler by name and resolve or reject is by name.</p>
+<p><code>promiser</code> is a simple manager of deferreds by name. Rather than creating and maintaining references to <code>jQuery.Deferred</code> objects, simply register a handler by name and resolve or reject it by name.</p>
 
 <div class="highlight"><pre><span class="nx">promiser</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="s1">'test'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'hello world'</span><span class="p">);</span>
@@ -67,9 +67,39 @@
 <span class="p">});</span>
 </pre></div>
 
-<p>You can even reset a deferred after it has been resolved or rejected. This provides a clean alternative to passing around references to deferred objects:</p>
+<p>Promiser can manage other deferred for you:</p>
+
+<div class="highlight"><pre><span class="nx">promiser</span><span class="p">.</span><span class="nx">manage</span><span class="p">(</span><span class="s1">'ajax'</span><span class="p">,</span> <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span> <span class="p">...</span> <span class="p">}));</span>
+</pre></div>
+
+<p>It can also stop managing a deferred:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="nx">promiser</span><span class="p">.</span><span class="nx">unmanage</span><span class="p">(</span><span class="s1">'ajax'</span><span class="p">);</span>
+</pre></div>
+
+<p>You can even reset a deferred. This provides a clean alternative to passing around references to deferred objects:</p>
 
 <div class="highlight"><pre><span class="nx">promiser</span><span class="p">.</span><span class="nx">reset</span><span class="p">(</span><span class="s1">'test1'</span><span class="p">);</span>
+</pre></div>
+
+<p>Deferreds can be watched for when they are initially created. This makes it easy to only execute something if another object needs it:</p>
+
+<div class="highlight"><pre><span class="c1">// Watch for the first time the 'lazy-data' deferrred it bound to</span>
+<span class="nx">promiser</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="s1">'lazy-data'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+        <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">promiser</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">'lazy-data'</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">,</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">promiser</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="s1">'lazy-data'</span><span class="p">,</span> <span class="nx">xhr</span><span class="p">,</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// This executes the watch handler above</span>
+<span class="nx">promiser</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="s1">'lazy-data'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something...</span>
+<span class="p">});</span>
 </pre></div>
 
 <h2>Install</h2>
