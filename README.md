@@ -41,7 +41,19 @@ promiser.when('test1', 'test2', 'test3', function() {
 });
 ```
 
-You can even reset a deferred after it has been resolved or rejected. This provides a clean alternative to passing around references to deferred objects:
+Promiser can manage other deferred for you:
+
+```javascript
+promiser.manage('ajax', $.ajax({ ... }));
+```
+
+It can also stop managing a deferred:
+
+```javascript
+var xhr = promiser.unmanage('ajax');
+```
+
+You can even reset a deferred. This provides a clean alternative to passing around references to deferred objects:
 
 ```javascript
 promiser.reset('test1');

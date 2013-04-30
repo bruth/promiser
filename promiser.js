@@ -28,14 +28,9 @@
 
     // Gets or creates a deferred object for `name` and adds it to
     // the `deferreds` object.
-    function _deferred(name, reset) {
+    function _deferred(name) {
         var deferred;
         if (!(deferred = this._deferreds[name])) {
-            deferred = this._deferreds[name] = $.Deferred();
-        } else if (reset) {
-            if (deferred.state() == 'pending') {
-                throw new Error('Cannot reset a deferred when pending');
-            }
             deferred = this._deferreds[name] = $.Deferred();
         }
         return deferred;
@@ -181,8 +176,24 @@
         },
 
         reset: function(name) {
-            _deferred.call(this, name, true);
+          this.unmanage(name);
+          return this;
+        },
+
+        manage: function(name, deferred) {
+            if (this.has(name)) {
+                throw new Error('Deferred by "' + name + '" already exists');
+            }
+            this._deferreds[name] = deferred;
             return this;
+        },
+
+        unmanage: function(name) {
+            if (this.has(name)) {
+                deferred = this._deferreds[name];
+                delete this._deferreds[name];
+                return deferred;
+            }
         }
 
     };
