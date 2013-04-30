@@ -77,16 +77,22 @@
             return !!this._deferreds[name];
         },
 
-        isRejected: function(name) {
+        state: function(name) {
             if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
-            return _deferred.call(this, name).isRejected.apply(this, args);
+            return _deferred.call(this, name).state.apply(this, args);
+        },
+
+        isPending: function(name) {
+            return this.state(name) == 'pending';
         },
 
         isResolved: function(name) {
-            if (!this.has(name)) return;
-            var args = _slice.call(arguments, 1);
-            return _deferred.call(this, name).isResolved.apply(this, args);
+            return this.state(name) == 'resolved';
+        },
+
+        isRejected: function(name) {
+            return this.state(name) == 'rejected';
         },
 
         done: function() {
@@ -159,12 +165,6 @@
             var args = _slice.call(arguments, 1);
             _deferred.call(this, name).notifyWith.apply(this, args);
             return this;
-        },
-
-        state: function(name) {
-            if (!this.has(name)) return;
-            var args = _slice.call(arguments, 1);
-            return _deferred.call(this, name).state.apply(this, args);
         },
 
         promise: function(name) {
