@@ -82,8 +82,15 @@ promiser.done('lazy-data', function(data) {
 
 ## Install
 
+### Bower
+
 ```bash
 bower install promiser
+```
+### NPM
+
+```bash
+npm install promiser
 ```
 
 ## Setup
@@ -94,22 +101,22 @@ promiser.js works in the browser as well as the Node and AMD environments.
 
 The `promiser` object can be used three ways:
 
-**As Is**
+### Singleton
 
 ```javascript
-// It itself implements the promiser API
+// It can be used directly
 promiser.done('foo', function() { ... });
 ```
 
-**Constructor**
+### Constructor
 
-```javscript
+```javascript
 // Create promiser objects
 var p1 = new promiser;
 p1 instanceof promiser; // true
 ```
 
-**Function**
+### Function
 
 ```javascript
 // Create a new plain object
