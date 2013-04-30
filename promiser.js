@@ -168,7 +168,8 @@
         },
 
         reset: function(name) {
-
+            _deferred.call(this, name, true);
+            return this;
         }
 
     };
