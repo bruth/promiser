@@ -19,8 +19,8 @@ Chaining works as expected:
 ```javascript
 promiser
     .done('test1', function() { ... })
-    .done('test2, function() { ... })
-    .done('test3, function() { ... });
+    .done('test2', function() { ... })
+    .done('test3', function() { ... });
 ```
 
 For a more elegant approach, an object can be passed:
