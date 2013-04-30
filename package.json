@@ -1,0 +1,17 @@
+{
+  "name": "promiser",
+  "version": "0.2.0",
+  "author": "Byron Ruth <b@devel.io>",
+  "description": "Manager of jQuery deferreds by name",
+  "license": "BSD",
+  "keywords": ["deferred", "promise"],
+  "dependencies": {
+    "jquery": ">=1.7.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jasmine": "~0.4.2",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-watch": "~0.3.1"
+  }
+}
