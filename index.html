@@ -104,7 +104,14 @@
 
 <h2>Install</h2>
 
+<h3>Bower</h3>
+
 <div class="highlight"><pre>bower install promiser
+</pre></div>
+
+<h3>NPM</h3>
+
+<div class="highlight"><pre>npm install promiser
 </pre></div>
 
 <h2>Setup</h2>
@@ -115,20 +122,20 @@
 
 <p>The <code>promiser</code> object can be used three ways:</p>
 
-<p><strong>As Is</strong></p>
+<h3>Singleton</h3>
 
-<div class="highlight"><pre><span class="c1">// It itself implements the promiser API</span>
+<div class="highlight"><pre><span class="c1">// It can be used directly</span>
 <span class="nx">promiser</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
 </pre></div>
 
-<p><strong>Constructor</strong></p>
+<h3>Constructor</h3>
 
-<pre lang="javscript"><code>// Create promiser objects
-var p1 = new promiser;
-p1 instanceof promiser; // true
-</code></pre>
+<div class="highlight"><pre><span class="c1">// Create promiser objects</span>
+<span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">promiser</span><span class="p">;</span>
+<span class="nx">p1</span> <span class="k">instanceof</span> <span class="nx">promiser</span><span class="p">;</span> <span class="c1">// true</span>
+</pre></div>
 
-<p><strong>Function</strong></p>
+<h3>Function</h3>
 
 <div class="highlight"><pre><span class="c1">// Create a new plain object</span>
 <span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="nx">promiser</span><span class="p">();</span>
