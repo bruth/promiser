@@ -73,12 +73,18 @@
 
         constructor: promiser,
 
+        has: function(name) {
+            return !!this._deferreds[name];
+        },
+
         isRejected: function(name) {
+            if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
             return _deferred.call(this, name).isRejected.apply(this, args);
         },
 
         isResolved: function(name) {
+            if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
             return _deferred.call(this, name).isResolved.apply(this, args);
         },
@@ -114,42 +120,49 @@
         },
 
         resolve: function(name) {
+            if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
             _deferred.call(this, name).resolve.apply(this, args);
             return this;
         },
 
         resolveWith: function(name) {
+            if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
             _deferred.call(this, name).resolveWith.apply(this, args);
             return this;
         },
 
         reject: function(name) {
+            if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
             _deferred.call(this, name).reject.apply(this, args);
             return this;
         },
 
         rejectWith: function(name) {
+            if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
             _deferred.call(this, name).rejectWith.apply(this, args);
             return this;
         },
 
         notify: function(name) {
+            if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
             _deferred.call(this, name).notify.apply(this, args);
             return this;
         },
 
         notifyWith: function(name) {
+            if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
             _deferred.call(this, name).notifyWith.apply(this, args);
             return this;
         },
 
         state: function(name) {
+            if (!this.has(name)) return;
             var args = _slice.call(arguments, 1);
             return _deferred.call(this, name).state.apply(this, args);
         },
