@@ -1,6 +1,6 @@
 # Promiser
 
-`promiser` is a simple manager of deferreds by name. Rather than creating and maintaining references to `jQuery.Deferred` objects, simply register a handler by name and resolve or reject is by name.
+`promiser` is a simple manager of deferreds by name. Rather than creating and maintaining references to `jQuery.Deferred` objects, simply register a handler by name and resolve or reject it by name.
 
 ```javascript
 promiser.done('test', function() {
