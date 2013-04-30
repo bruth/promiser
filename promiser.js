@@ -46,9 +46,38 @@
                 _proxy.call(this, method, key, name[key]);
             }
         } else {
-            var _args = _slice.call(arguments, 2),
+            var promise,
+                watchers,
+                first = !this.has(name),
+                _args = _slice.call(arguments, 2),
                 _ref = _deferred.call(this, name);
-            return _ref[method].apply(_ref, _args).promise();
+
+            promise =_ref[method].apply(_ref, _args).promise();
+
+            // Invoke watcher methods
+            if (first && (watchers = this._watchers[name])) {
+                var i;
+                // Prevent a watch handler to be registered within a watcher..
+                delete this._watchers[name];
+                for (i = 0; i < watchers.length; i++) {
+                    watchers[i]();
+                }
+            }
+
+            return promise;
+        }
+    }
+
+    function _watch(name) {
+        if (typeof name == 'object') {
+            var key;
+            for (key in name) {
+                _watch.call(this, key, name[key]);
+            }
+        } else {
+            var _args = _slice.call(arguments, 1),
+                _handlers = this._watchers[name] || [];
+            this._watchers[name] = _handlers.concat(_args);
         }
     }
 
@@ -56,9 +85,11 @@
         // Called with new
         if (this.constructor === promiser) {
             this._deferreds = {};
+            this._watchers = {};
         } else {
             object = object || {};
             object._deferreds = {};
+            object._watchers = {};
             $.extend(object, promiser.prototype);
             return object;
         }
@@ -168,11 +199,18 @@
         },
 
         when: function() {
-            var i, deferreds = [];
+            var i, arg, deferreds = [];
             for (i = 0; i < arguments.length; i++) {
-                deferreds.push(_deferred.call(this, arguments[i]));
+                arg = arguments[i];
+                if (typeof arg == 'string') {
+                    deferreds.push(_deferred.call(this, arg));
+                } else {
+                    break;
+                }
             }
-            return jQuery.when.apply(this, deferreds);
+            var _ref = $.when.apply($, deferreds);
+            _ref.done.apply(_ref, _slice.call(arguments, i));
+            return this;
         },
 
         reset: function(name) {
@@ -189,11 +227,16 @@
         },
 
         unmanage: function(name) {
+            delete this._watchers[name];
             if (this.has(name)) {
                 deferred = this._deferreds[name];
                 delete this._deferreds[name];
                 return deferred;
             }
+        },
+
+        watch: function() {
+            return _watch.apply(this, _slice.call(arguments));
         }
 
     };

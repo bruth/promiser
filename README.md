@@ -59,6 +59,26 @@ You can even reset a deferred. This provides a clean alternative to passing arou
 promiser.reset('test1');
 ```
 
+Deferreds can be watched for when they are initially created. This makes it easy to only execute something if another object needs it:
+
+```javascript
+// Watch for the first time the 'lazy-data' deferrred it bound to
+promiser.watch('lazy-data', function() {
+    $.ajax({
+        success: function(data) {
+            promiser.resolve('lazy-data', data);
+        },
+        error: function(xhr, text, err) {
+            promiser.reject('lazy-data', xhr, text, err);
+        }
+    });
+});
+
+// This executes the watch handler above
+promiser.done('lazy-data', function(data) {
+    // do something...
+});
+```
 
 ## Install
 
