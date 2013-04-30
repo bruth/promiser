@@ -1,2 +1,6 @@
 *.sw?
+.grunt
 components
+node_modules
+spec-runner.html
+spec/test.js
