@@ -1,5 +1,5 @@
 /*
- * promiser.js - 0.2.0
+ * promiser.js - 0.2.1
  * (c) 2013 Byron Ruth
  * promiser.js may be freely distributed under the BSD license
  */
