@@ -31,6 +31,13 @@ describe 'promiser', ->
       p.done 'test', ->
       expect(p.has 'test').toBe true
 
+  describe 'resolve then call', ->
+
+    it 'should call immediately if already resolved', ->
+
+      flag = false
+      p.resolve 'test'
+      p.done 'test', -> flag = true
 
   describe 'defer methods', ->
 
