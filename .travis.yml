@@ -2,4 +2,5 @@ before_script:
     - npm install -g grunt-cli
     - npm install
 
-script: grunt jasmine --verbose
+script:
+    - grunt test --verbose

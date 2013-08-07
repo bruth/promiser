@@ -1,6 +1,6 @@
 module.exports = (grunt) ->
     'use strict'
-    
+
     # Project configuration.
     grunt.initConfig
         watch:
@@ -26,12 +26,13 @@ module.exports = (grunt) ->
                 ext: '.js'
 
         jasmine:
-            src: 'promiser.js'
-            options:
-                keepRunner: true
-                outfile: 'spec-runner.html'
-                specs: 'spec/*.js'
-                vendor: 'vendor/*.js'
+            test:
+                src: 'promiser.js'
+                options:
+                    keepRunner: true
+                    outfile: 'spec-runner.html'
+                    specs: 'spec/*.js'
+                    vendor: 'vendor/*.js'
 
 
     grunt.loadNpmTasks 'grunt-contrib-watch'
@@ -39,3 +40,5 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-jasmine'
 
     grunt.registerTask 'default', ['coffee', 'jasmine']
+
+    grunt.registerTask 'test', ['jasmine:test']
