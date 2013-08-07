@@ -39,6 +39,5 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-coffee'
     grunt.loadNpmTasks 'grunt-contrib-jasmine'
 
-    grunt.registerTask 'default', ['coffee', 'jasmine']
-
-    grunt.registerTask 'test', ['jasmine:test']
+    grunt.registerTask 'default', ['coffee', 'watch']
+    grunt.registerTask 'test', ['coffee:compile', 'jasmine:test']
