@@ -35,7 +35,7 @@
         }
         return deferred;
     }
-    
+
     // Proxies promise-based methods to promiser. Also takes an object
     // of name/handler pairs. The latter invocation does not return a
     // promise while the former does.
@@ -208,8 +208,13 @@
         },
 
         reset: function(name) {
-          this.unmanage(name);
-          return this;
+            if (name == null) {
+                this._watchers = {};
+                this._deferreds = {};
+            } else {
+                this.unmanage(name);
+            }
+            return this;
         },
 
         manage: function(name, deferred) {
