@@ -1,6 +1,6 @@
 {
   "name": "promiser",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Byron Ruth <b@devel.io>",
   "description": "Manager of jQuery deferreds by name",
   "homepage": "http://bruth.github.io/promiser/",
